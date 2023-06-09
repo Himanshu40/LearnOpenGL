@@ -11,6 +11,12 @@ void framebuffer_size_callback(GLFWwindow * window, int width, int height) {
 	glViewport(0, 0, width, height);
 }
 
+// Checks if escape key is currently being pressed then close the window
+void processInput(GLFWwindow* window) {
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+		glfwSetWindowShouldClose(window, true);
+	}
+}
 
 int main() {
 	// glfw: initialize and configure
@@ -40,12 +46,15 @@ int main() {
 		return -1;
 	}
 
-	// Window Size
-	glViewport(0, 0, 800, 600);
-
-
 	// Render loop until explicitly told to stop
 	while (!glfwWindowShouldClose(window)) {
+		// Input
+		processInput(window);
+
+		// Render
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+
 		// glfw: Swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		glfwSwapBuffers(window);
 		glfwPollEvents();
